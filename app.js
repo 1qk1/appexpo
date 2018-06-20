@@ -5,13 +5,13 @@ const express = require('express'),
   User = require('./models/user'),
   bodyParser = require('body-parser'),
   bcrypt = require('bcrypt'),
-  private = require('./private');
+  config = require('./config');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-mongoose.connect(private.mongoURI, () => {
+mongoose.connect(config.mongoURI, () => {
   console.log('Database Connected!');
 });
 
