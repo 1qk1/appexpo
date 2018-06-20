@@ -6,6 +6,10 @@
 }
 
 small {
+  color: gray;
+}
+
+.error {
   color: #ff2400;
 }
 
