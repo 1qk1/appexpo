@@ -4,13 +4,14 @@ const express = require('express'),
   Project = require('./models/project'),
   User = require('./models/user'),
   bodyParser = require('body-parser'),
-  bcrypt = require('bcrypt');
+  bcrypt = require('bcrypt'),
+  private = require('./private');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-mongoose.connect('mongodb://qkxd:appexpo123@ds247290.mlab.com:47290/appexpo', () => {
+mongoose.connect(private.mongoURI, () => {
   console.log('Database Connected!');
 });
 
