@@ -1,0 +1,23 @@
+<% include partials/header %>
+
+<h1>Add a new project</h1>
+
+<form action="/new" method='POST'>
+  <div class="form-group">
+    <!-- <label for='title'>Title: </label> -->
+    <input type="text" name='title' id='title' required placeholder='Title'>
+  </div>
+  <div class="form-group">
+    <!-- <label for='description'>Description: </label> -->
+    <textarea name='description' rows='5' id='description' required placeholder='Description'></textarea>
+  </div>
+  <div class="form-group">
+    <!-- <label for='image'>Image: </label> -->
+    <input type="text" name='image' id='image' required placeholder='Image'>
+  </div>
+  <div class="form-group">
+    <input type="submit">
+  </div>
+</form>
+
+<% include partials/footer %>

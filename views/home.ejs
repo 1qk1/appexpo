@@ -1,0 +1,24 @@
+<% include partials/header %>
+<% include partials/intro %>
+
+<div class="showcase">
+    <% if (projects.length === 0) { %>
+      <h2>There are no projects!</h2>
+      <% } else { %>
+        <% projects.forEach(project => { %>
+          <a href="/project/<%= project._id %>" class='project'>
+            <!-- <div class='project'> -->
+              <img src="<%= project.image %>" alt="peos">
+              <p><%= project.title %></p>
+              <p><small><% if (project.description.length > 100) { %>
+                <%= project.description.slice(0, 97) + '...' %>
+              <% } else {%>
+                <%= project.description %>
+              <% } %></small></p>
+            <!-- </div> -->
+          </a>
+        <% }); %>
+      <% } %>
+</div>
+
+<% include partials/footer %>

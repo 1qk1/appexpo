@@ -1,0 +1,17 @@
+<% include partials/header %>
+
+<h1>Login</h1>
+
+<form action="/new" method='POST'>
+  <div class="form-group">
+    <input type="text" name='username' id='username' required placeholder='Enter username'>
+  </div>
+  <div class="form-group">
+    <input type="password" name='password' id='password' required placeholder='Enter password'>
+  </div>
+  <div class="form-group">
+    <input type="submit">
+  </div>
+</form>
+
+<% include partials/footer %>

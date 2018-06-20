@@ -1,0 +1,22 @@
+<% include partials/header %>
+
+<h1>Register</h1>
+
+<form action="/register" method='POST'>
+  <div class="form-group">
+    <input type="text" name='username' id='username' required placeholder='Enter username'>
+    <input type="email" name='email' id='email' required placeholder='Enter email'>
+  </div>
+  <div class="form-group">
+    <input type="password" name='password' id='password' required placeholder='Enter password'>
+    <input type="password" name='password' id='password' required placeholder='Enter password again'>
+  </div>
+  <% if (message !== undefined) { %>
+    <p><small><%= message %></small></p>
+  <% } %>
+  <div class="form-group">
+    <input type="submit">
+  </div>
+</form>
+
+<% include partials/footer %>
