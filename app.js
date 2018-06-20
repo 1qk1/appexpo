@@ -37,7 +37,24 @@ app.post('/new', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { message: undefined });
+});
+
+app.post('/login', (req, res) => {
+  User.findOne({ username: req.body.username }).then(result => {
+    if (!result) {
+      res.render('login', { message: 'User not found' });
+    } else {
+      bcrypt.compare(req.body.password, result.password, (error, response) => {
+        if (!response) {
+          res.render('login', { message: 'Wrong password' })
+        } else {
+          console.log('res', response);
+          //cookies and shit
+        }
+      });
+    }
+  })
 });
 
 app.get('/register', (req, res) => {
@@ -47,30 +64,31 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
   const newUser = {
     username: req.body.username,
-    password: req.body.password[0],
     email: req.body.email,
     joinDate: new Date()
   }
   if (req.body.password[0] !== req.body.password[1]) {
     res.render('register', { message: "Passwords don't match" });
+  } else {
+    User.findOne({ username: req.body.username }).then(result => {
+      if (result !== null) {
+        res.render('register', { message: 'User already exists' });
+      } else {
+        bcrypt.hash(req.body.password[0], 14, (err, hashedPassword) => {
+          newUser.password = hashedPassword;
+          newUser.save().then((err, user) => {
+            if (error) {
+              console.log('error', err);
+              res.render('register', { message: error });
+            } else {
+              console.log('user', user);
+              res.redirect('/');
+            }
+          });
+        });
+      }
+    });
   }
-  User.findOne({ username: req.body.username }).then(result => {
-    if (result !== null) {
-      res.render('register', { message: 'User already exists' });
-    } else {
-      newUser.password = bcrypt.hash(newUser.password, 10, (err, salt) => {
-        console.log(salt);
-        // User.create(newUser).then((err, user) => {
-        //   if (err) {
-        //     res.render('register', {message: err});
-        //   } else {
-        //     res.redirect('/');
-        //   }
-        // });
-      });
-
-    }
-  });
 });
 
 app.get('*', (req, res) => {
