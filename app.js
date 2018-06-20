@@ -96,7 +96,7 @@ app.get('*', (req, res) => {
   res.redirect('/');
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, process.env.IP, () => {
   console.log('App listening on port ' + port);
