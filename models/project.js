@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
   title: String,
   image: String,
-  uploader: Object,
+  uploader: {
+    username: String,
+    id: mongoose.Schema.Types.ObjectId
+  },
   demo: String,
   madeWith: String,
   date: String,

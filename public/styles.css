@@ -1,6 +1,5 @@
 * {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
   /* letter-spacing: 1px; */
   box-sizing: border-box;
 }
@@ -80,7 +79,7 @@ ul {
 
 .lol {
   flex-direction: row;
-  padding: 8px;
+  padding: 0;
 }
 
 .showcase {
@@ -88,11 +87,11 @@ ul {
   flex-wrap: wrap;
 }
 
-nav li {
-  /* display: inline-flex; */
-  padding: 8px 10px;
+nav li a {
+  display: inline-block;
+  padding: 1rem 0.75rem;
+  border-bottom: 2px solid transparent;
   /* background-color: #61dafb; */
-  border-radius: 3px;
   margin: 0;
   transition: all 0.15s;
 }
@@ -140,4 +139,12 @@ input[type='submit'] {
   color: #fff;
   background-color: #3ba554;
   margin: 20px 10px;
+}
+
+.intro * {
+  font-weight: 600;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #fff;
 }
