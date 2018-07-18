@@ -19,5 +19,8 @@
     <input type="submit">
   </div>
 </form>
+<% if (message !== undefined) { %>
+  <p><small class='error'><%= message %></small></p>
+<% } %>
 
 <% include partials/footer %>
