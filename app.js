@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.use(require('express-session')({
-  secret: 'super secret key l0l',
+  secret: process.env.EXPRESS_SESSION_KEY,
   resave: false,
   saveUninitialized: true
 }));
