@@ -16,23 +16,27 @@ router.get('/login', (req, res) => {
 
 router.post('/login', (req, res) => {
   User.findOne({ username: req.body.username }, (err, foundUser) => {
-    if (!foundUser) {
-      res.render('login', { message: 'User not found' });
+    if (err) {
+      res.render('login', {message: err});
     } else {
-      bcrypt.compare(req.body.password, foundUser.password, (error, response) => {
-        if (!response) {
-          res.render('login', { message: 'Wrong password' })
-        } else {
-          const publicData = {
-            id: foundUser._id,
-            username: foundUser.username,
-            joinDate: foundUser.joinDate,
-            posts: foundUser.projects
+      if (!foundUser) {
+        res.render('login', { message: 'User not found' });
+      } else {
+        bcrypt.compare(req.body.password, foundUser.password, (error, response) => {
+          if (!response) {
+            res.render('login', { message: 'Wrong password' })
+          } else {
+            const publicData = {
+              id: foundUser._id,
+              username: foundUser.username,
+              joinDate: foundUser.joinDate,
+              posts: foundUser.projects
+            }
+            req.session.user = publicData;
+            res.redirect('/');
           }
-          req.session.user = publicData;
-          res.redirect('/');
-        }
-      });
+        });
+      }
     }
   })
 });
@@ -64,9 +68,9 @@ router.post('/register', (req, res) => {
       if (result !== null) {
         res.render('register', { message: 'User already exists' });
       } else {
-        bcrypt.hash(req.body.password[0], 14, (err, hashedPassword) => {
+        bcrypt.hash(req.body.password[0], process.env.SALT_ROUNDS, (err, hashedPassword) => {
           newUser.password = hashedPassword;
-          newUser.save().then((user, err) => {
+          newUser.save((err, user) => {
             if (err) {
               console.log('error', err);
               res.render('register', { message: err });
