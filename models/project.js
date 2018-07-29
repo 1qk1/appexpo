@@ -5,7 +5,10 @@ const projectSchema = new mongoose.Schema({
   image: String,
   uploader: {
     username: String,
-    id: mongoose.Schema.Types.ObjectId
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
   },
   demo: String,
   madeWith: String,
