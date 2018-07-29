@@ -8,38 +8,27 @@ router.get('/new', isLoggedIn, (req, res) => {
   res.render('new');
 });
 
-router.post('/new', isLoggedIn, (req, res) => {
-  if (isImage(req.body.image)) {
-    User.findById(req.session.user.id, (err, foundUser) => {
-      const project = new Project({
-        title: req.body.title,
-        description: req.body.description,
-        image: req.body.image,
-        uploader: {
-          username: req.session.user.username,
-          id: req.session.user.id,
-        }
-      });
-      project.save((err, savedProject) => {
-        if (err) {
-          console.log(err);
-          res.render('new', {message: 'Something went wrong'});
-        } else {
-          foundUser.projects.push(savedProject);
-          foundUser.save((err, savedUser) => {
-            if (err) {
-              console.log(err);
-              res.render('new', {message: 'Something went wrong'});
-            } else {
-              console.log(savedUser);
-              res.redirect('/');
-            }
-          });
-        }
-      });
+router.post('/new', isLoggedIn, async (req, res) => {
+  try {
+    if (!isImage(req.body.image)){
+      throw new Error('Invalid image URL');
+    }
+    const user = await User.findById(req.session.user.id);
+    const newProject = new Project({
+      title: req.body.title,
+      description: req.body.description,
+      image: req.body.image,
+      uploader: {
+        username: req.session.user.username,
+        id: req.session.user.id,
+      }
     });
-  } else {
-    res.render('new', {message: 'Invalid image URL'});
+    await newProject.save();
+    user.projects.push(newProject);
+    await user.save();
+    res.redirect('/');
+  } catch(err) {
+    res.render('new', {message: err.message});
   }
 });
 

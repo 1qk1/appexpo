@@ -14,80 +14,62 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.post('/login', (req, res) => {
-  User.findOne({ username: req.body.username }, (err, foundUser) => {
-    if (err) {
-      res.render('login', {message: err});
-    } else {
-      if (!foundUser) {
-        res.render('login', { message: 'User not found' });
-      } else {
-        bcrypt.compare(req.body.password, foundUser.password, (error, response) => {
-          if (!response) {
-            res.render('login', { message: 'Wrong password' })
-          } else {
-            const publicData = {
-              id: foundUser._id,
-              username: foundUser.username,
-              joinDate: foundUser.joinDate,
-              posts: foundUser.projects
-            }
-            req.session.user = publicData;
-            res.redirect('/');
-          }
-        });
-      }
+router.post('/login', async (req, res) => {
+  try {
+    const foundUser = await User.findOne({ username: req.body.username })
+    if (!foundUser) {
+      throw new Error('User doesn\'t exist');
     }
-  })
+    if (await bcrypt.compare(req.body.password, foundUser.password)) {
+      const publicData = {
+        id: foundUser._id,
+        username: foundUser.username,
+        joinDate: foundUser.joinDate,
+        posts: foundUser.projects
+      }
+      req.session.user = publicData;
+      res.redirect('/');
+    }
+  } catch(err) {
+    res.render('login', {message: err.message});
+  }
 });
 
 router.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
-    }
-  });
+  req.session.destroy();
+  res.redirect('/');
 });
 
 router.get('/register', (req, res) => {
   res.render('register');
 });
 
-router.post('/register', (req, res) => {
-  const newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    joinDate: new Date()
-  });
-  if (req.body.password[0] !== req.body.password[1]) {
-    res.render('register', { message: "Passwords don't match" });
-  } else {
-    User.findOne({ username: req.body.username }).then(result => {
-      if (result !== null) {
-        res.render('register', { message: 'User already exists' });
-      } else {
-        bcrypt.hash(req.body.password[0], process.env.SALT_ROUNDS, (err, hashedPassword) => {
-          newUser.password = hashedPassword;
-          newUser.save((err, user) => {
-            if (err) {
-              console.log('error', err);
-              res.render('register', { message: err });
-            } else {
-              const publicData = {
-                id: user._id,
-                username: user.username,
-                joinDate: user.joinDate,
-                posts: user.projects
-              }
-              req.session.user = publicData;
-              res.redirect('/');
-            }
-          });
-        });
-      }
+router.post('/register', async (req, res) => {
+  try {
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      joinDate: new Date()
     });
+    if (req.body.password[0] !== req.body.password[1]){
+      throw new Error("Passwords don't match");
+    } 
+    const searchedUser = await User.findOne({username: req.body.username});
+    if (searchedUser) {
+      throw new Error('User already exists');
+    }
+    newUser.password = await bcrypt.hash(req.body.password[0], 14);
+    const user = await newUser.save();
+    const publicData = {
+      id: user._id,
+      username: user.username,
+      joinDate: user.joinDate,
+      posts: user.projects
+    }
+    req.session.user = publicData;
+    res.redirect('/');
+  } catch(err) {
+    res.render('register', { message: err.message });
   }
 });
 
