@@ -5,7 +5,7 @@ const router = require('express').Router(),
       isImage = require('is-image');
 
 router.get('/new', isLoggedIn, (req, res) => {
-  res.render('new');
+  res.render('projects/new');
 });
 
 router.post('/new', isLoggedIn, async (req, res) => {
@@ -30,6 +30,11 @@ router.post('/new', isLoggedIn, async (req, res) => {
   } catch(err) {
     res.render('new', {message: err.message});
   }
+});
+
+router.get('/:id', (req, res) => {
+  res.send('this is the preview page');
+  // res.render('show');
 });
 
 module.exports = router;
