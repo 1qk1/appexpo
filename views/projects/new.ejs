@@ -1,8 +1,8 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <h1>Add a new project</h1>
 
-<form action="/new" method='POST'>
+<form action="/projects/new" method='POST'>
   <div class="form-group">
     <!-- <label for='title'>Title: </label> -->
     <input type="text" name='title' id='title' required placeholder='Title'>
@@ -23,4 +23,4 @@
   <p><small class='error'><%= message %></small></p>
 <% } %>
 
-<% include partials/footer %>
+<% include ../partials/footer %>
