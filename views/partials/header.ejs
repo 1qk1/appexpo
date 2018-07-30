@@ -8,11 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="/styles.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/components/icon.min.css">
 </head>
 
 <body>
   <nav>
-    <ul class='container lol'>
+    <ul class='container nav'>
       <li><a href="/">Home</a></li>
       <% if (!currentUser) { %>
         <li><a href="/login">Login</a></li>
@@ -20,7 +21,7 @@
       <% } else { %>
         <li><a href="/user/<%= currentUser.id %>">Logged in as <%= currentUser.username %></a></li>
         <li><a href="/logout">Logout</a></li>
-        <li><a href="/new">Add a project</a></li>
+        <li><a href="/projects/new">Add a project</a></li>
       <% } %>
     </ul>
   </nav>
