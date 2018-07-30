@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(projectRoutes);
+app.use('/projects', projectRoutes);
 app.use(indexRoutes);
 
 const port = process.env.PORT || 3000;
