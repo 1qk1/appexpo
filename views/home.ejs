@@ -6,16 +6,20 @@
       <h2>There are no projects!</h2>
       <% } else { %>
         <% projects.forEach(project => { %>
-          <a href="/project/<%= project._id %>" class='project'>
-            <!-- <div class='project'> -->
-              <img src="<%= project.image %>" alt="peos">
+          <!-- <a href="/projects/<%= project._id %>" class='project'> -->
+            <div class='project'>
+              <a href="/projects/<%= project._id %>">
+                <img src="<%= project.image %>" alt="peos">
               <p><%= project.title %></p>
-              <p><small><% if (project.description.length > 100) { %>
-                <%= project.description.slice(0, 97) + '...' %>
+              <% if (project.description.length > 100) { %>
+                <p><small><%= project.description.slice(0, 97) + '...' %></small></p>
               <% } else {%>
-                <%= project.description %>
-              <% } %></small></p>
-            <!-- </div> -->
+                <p><small><%= project.description %></small></p>
+              <% } %>
+              </a>
+              <!-- <a href="asd"><i class='icon eye'></i></a>
+              <a href="asd"><i class='icon github'></i></a> -->
+            </div>
           </a>
         <% }); %>
       <% } %>
