@@ -13,7 +13,9 @@ const projectSchema = new mongoose.Schema({
   demo: String,
   madeWith: String,
   date: String,
-  description: String
+  description: String,
+  demo: String,
+  github: String
 });
 
 const Project = mongoose.model('project', projectSchema);

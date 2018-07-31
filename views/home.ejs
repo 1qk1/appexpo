@@ -17,8 +17,13 @@
                 <p><small><%= project.description %></small></p>
               <% } %>
               </a>
-              <!-- <a href="asd"><i class='icon eye'></i></a>
-              <a href="asd"><i class='icon github'></i></a> -->
+              <% if (project.demo) { %>
+                <a href="<%= project.demo %>" target='_blank'><i class='icon eye'></i></a>
+              <% } %>
+              <% if (project.github) { %>
+                <a href="<%= project.github %>" target='_blank'><i class='icon github'></i></a>
+              <% } %>
+              
             </div>
           </a>
         <% }); %>
