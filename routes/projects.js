@@ -10,14 +10,15 @@ router.get('/new', isLoggedIn, (req, res) => {
 
 router.post('/new', isLoggedIn, async (req, res) => {
   try {
-    if (!isImage(req.body.image)){
+    const project = req.body.project;
+    project.demo.startsWith('http') ? project.demo : project.demo = 'https://' + project.demo;
+    project.github.startsWith('http') ? project.github : project.github = 'https://' + project.github;
+    if (!isImage(project.image)){
       throw new Error('Invalid image URL');
     }
     const user = await User.findById(req.session.user.id);
     const newProject = new Project({
-      title: req.body.title,
-      description: req.body.description,
-      image: req.body.image,
+      ...project,
       uploader: {
         username: req.session.user.username,
         id: req.session.user.id,
@@ -28,7 +29,7 @@ router.post('/new', isLoggedIn, async (req, res) => {
     await user.save();
     res.redirect('/');
   } catch(err) {
-    res.render('new', {message: err.message});
+    res.render('projects/new', {message: err.message});
   }
 });
 
