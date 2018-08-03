@@ -11,6 +11,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 router.post('/new', isLoggedIn, async (req, res) => {
   try {
     const project = req.body.project;
+    project.date = new Date();
     project.demo.startsWith('http') ? project.demo : project.demo = 'https://' + project.demo;
     project.github.startsWith('http') ? project.github : project.github = 'https://' + project.github;
     if (!isImage(project.image)){
@@ -33,9 +34,10 @@ router.post('/new', isLoggedIn, async (req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
-  res.send('this is the preview page');
-  // res.render('show');
+router.get('/:id', async (req, res) => {
+  // res.send('this is the preview page');
+  const project = await Project.findById(req.params.id);
+  res.render('projects/show', {project});
 });
 
 module.exports = router;
