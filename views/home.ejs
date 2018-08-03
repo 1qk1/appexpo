@@ -11,8 +11,8 @@
               <a href="/projects/<%= project._id %>">
                 <img src="<%= project.image %>" alt="peos">
               <p><%= project.title %></p>
-              <% if (project.description.length > 100) { %>
-                <p><small><%= project.description.slice(0, 97) + '...' %></small></p>
+              <% if (project.description.length > 120) { %>
+                <p class='project__description'><small><%= project.description.slice(0, 117) + '...' %></small></p>
               <% } else {%>
                 <p><small><%= project.description %></small></p>
               <% } %>
