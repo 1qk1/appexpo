@@ -1,12 +1,9 @@
 <% include partials/header %>
 
-<h1>Register</h1>
-
-<form action="/register" method='POST'>
-  <div class="form-group">
-    <input type="text" name='username' id='username' required placeholder='Enter username'>
-    <input type="email" name='email' id='email' required placeholder='Enter email'>
-  </div>
+<form action="/register" method='POST' class='form__user'>
+  <h1 class='form__user--title'>Register</h1>
+  <input type="text" name='username' id='username' required placeholder='Enter username'>
+  <input type="email" name='email' id='email' required placeholder='Enter email'>
   <div class="form-group">
     <input type="password" name='password' id='password' required placeholder='Enter password'>
     <input type="password" name='password' id='password' required placeholder='Enter password again'>
@@ -14,9 +11,7 @@
   <% if (message !== undefined) { %>
     <p><small class='error'><%= message %></small></p>
   <% } %>
-  <div class="form-group">
-    <input type="submit">
-  </div>
+  <input type="submit">
 </form>
 
 <% include partials/footer %>

@@ -6,6 +6,13 @@
   padding: 0;
 }
 
+html, body{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+}
+
 small {
   color: gray;
 }
@@ -18,13 +25,6 @@ input[type="submit"] {
 
 .error {
   color: #ff2400;
-}
-
-html, body{
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  background-color: #f1f1f1;
 }
 
 .container {
@@ -190,17 +190,40 @@ a:visited {
   text-decoration: none;
 }
 
+.form__user {
+  text-align: center;
+  /* background-color: #CBD7F2; */
+  width: 500px;
+  margin: auto;
+  padding: 1.5rem 2rem;
+  border-radius: 3px;
+  /* box-shadow: 0 5px 50px rgba(0, 0, 0, 0.1); */
+}
+
+.form__user--title {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.form__user input {
+  margin-bottom: 1rem;
+}
+
 .form-group {
   display: flex;
   margin: auto;
-  width: 500px;
-  max-width: 100%;
-  padding: 5px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.form-group * {
+  flex: 0 0 49%;
+  margin: 0;
 }
 
 input, textarea {
   /* display: block; */
-  margin: 5px;
+  margin: 5px auto;
   width: 100%;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -215,6 +238,7 @@ textarea {
 }
 
 input[type='submit'] {
+  margin: 0;
   background-color: #3ba554;
   color: #fff;
 }
