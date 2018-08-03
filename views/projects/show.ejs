@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+
+  <div class='preview'>
+    <div class="preview__top">
+      <img src="<%= project.image %>">
+    </div>
+    <div class="preview__bottom">
+      <h1><%= project.title %></h1>
+      <small><%= project.date.toDateString() %></small>
+      <p class='project__description'><%= project.description %></p>
+      <div class="preview__links">
+        <% if (project.demo) { %>
+          <p><i class='icon eye'></i>Website: <a href="<%= project.demo %>" target='_blank'><%= project.demo %></a></p>
+        <% } %>
+        <% if (project.github) { %>
+          <p><i class='icon github'></i>Github: <a href="<%= project.github %>" target='_blank'><%= project.github %></a></p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+<% include ../partials/footer %>
