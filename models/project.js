@@ -11,8 +11,7 @@ const projectSchema = new mongoose.Schema({
     }
   },
   demo: String,
-  madeWith: String,
-  date: String,
+  date: Date,
   description: String,
   demo: String,
   github: String
