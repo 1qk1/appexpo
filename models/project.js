@@ -14,7 +14,11 @@ const projectSchema = new mongoose.Schema({
   date: Date,
   description: String,
   demo: String,
-  github: String
+  github: String,
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'comment'
+  }]
 });
 
 const Project = mongoose.model('project', projectSchema);
