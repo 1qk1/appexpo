@@ -236,6 +236,12 @@ a:visited {
   margin: 0;
 }
 
+div.footer {
+  height: 25vh;
+  margin-top: 10rem;
+  /* background-color: #fff; */
+}
+
 input, textarea {
   /* display: block; */
   margin: 5px auto;
