@@ -1,7 +1,7 @@
 const router = require('express').Router(),
       User = require('../models/user'),
       Project = require('../models/project'),
-      isLoggedIn = require('../utils').isLoggedIn,
+      { isLoggedIn } = require('../middleware'),
       isImage = require('is-image');
 
 router.get('/new', isLoggedIn, (req, res) => {
@@ -36,8 +36,12 @@ router.post('/new', isLoggedIn, async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   // res.send('this is the preview page');
-  const project = await Project.findById(req.params.id);
-  res.render('projects/show', {project});
+  const project = await Project.findById(req.params.id).populate('comments');
+  if (project !== null) {
+    res.render('projects/show', {project});
+  } else {
+    res.redirect('/');
+  }
 });
 
 module.exports = router;
