@@ -19,8 +19,8 @@
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
       <% } else { %>
-        <li><a href="/logout">Logout</a></li>
         <li><a href="/projects/new">Add a project</a></li>
+        <li><a href="/logout">Logout</a></li>
         <li class='user__link'><a href="/user/<%= currentUser.id %>">Logged in as <%= currentUser.username %></a></li>
       <% } %>
     </ul>

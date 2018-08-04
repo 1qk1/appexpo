@@ -17,6 +17,27 @@
         <% } %>
       </div>
     </div>
+    <div class='comments'>
+      <h3>Comments (<%= project.comments.length %>)</h3>
+      <% if (project.comments.length === 0) { %>
+        <div>
+          <h3 style='text-align: center; margin: 2rem 0'>No comments.</h3>
+        </div>
+      <% } else { %>
+        <% project.comments.forEach(comment => { %>
+          <div class="comment">
+            <h3><%= comment.author.username %></h3>
+            <small><%= comment.created.toDateString() %></small>
+            <p><%= comment.text %></p>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+    <form action="/projects/<%= project._id %>/comments/new" class='form__comments' method='POST'>
+      <h4>Add a comment</h4>
+      <textarea name='text' rows="3"></textarea>
+      <input type="submit">
+    </form>
   </div>
 
 <% include ../partials/footer %>
