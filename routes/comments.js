@@ -11,7 +11,6 @@ router.post('/new', isLoggedIn, async (req, res) => {
   const newComment = await Comment.create(comment);
   project.comments.push(newComment);
   updatedProject = await project.save();
-  console.log(updatedProject);
   res.redirect('/projects/' + req.params.id);
 });
 
