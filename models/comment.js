@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
   author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'comment'
+    username: String,
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    }
   },
-  text: String
+  text: String,
+  created: Date
 });
 
 const Comment = mongoose.model('comment', commentSchema);
