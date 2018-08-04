@@ -3,7 +3,8 @@ const express = require('express'),
       mongoose = require('mongoose'),
       bodyParser = require('body-parser'),
       projectRoutes = require('./routes/projects'),
-      indexRoutes = require('./routes/index');
+      indexRoutes = require('./routes/index'),
+      commentRoutes = require('./routes/comments');
 
 require('dotenv').config();
 mongoose.connect(process.env.MONGO_URI, () => {console.log('Database Connected!')});
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/projects', projectRoutes);
+app.use('/projects/:id/comments', commentRoutes);
 app.use(indexRoutes);
 
 const port = process.env.PORT || 3000;
